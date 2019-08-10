@@ -1,0 +1,9 @@
+Interface
+Moznost sbirat itemy a fixni fight na roomce
+Moznost vybrat si jestli chci fightit
+
+DONE:
+Refactor getline
+Volitelne jmeno savefilu
+Ulozeni hry zjevne neuklada pozici
+Pri ulozeni printni jak se jmenuje aktualni save.

@@ -1,0 +1,18 @@
+  
+  Textove RPG, ve hre jdou prochazet mistnosti, volba bude klasicky input, nebo take z nabidky, podle situace.
+Hra implementuje tahovy soubojovy system s moznosti uteku ( kdyz hrdina klesne pod 5 zivotu ),
+tak se vyhodnoti sance na souboj ve tride Event ( nejspis treba 15% ) jako jakesi prepadeni, nebo bude take mala sance nejake nehody ( zakopnuti, pad ze stromu ), ale nikdy ne najednou souboj a nehoda
+
+  Priklad inputu ze souboru je mozno videt v input.txt, na zpracovani vstupu pouziji nekolik stavu ( podle toho, jestli zpracovavam sekci WORLD, MOB, atd. ),
+pri nalezeni nevalidniho vstupu radek preskocim a ignoruji. Klicovou veci pro orientaci je struktura na souradnice, kde klasicky kartezskou soustavou upresnuji pozici roomky, Moba,
+hrdiny, dialogu, atd. Pridavana hrana je oboustranna, aby nevznikaly zbytecne chyby a definice souboru nebyla zdlouhava ( metoda se podiva zda je mozne jit z puvodni roomky do cilove, pokud ne,
+                        tak jestli je mozne jit z cilove do puvodni )
+
+  V roomce se bude resit interakce v ramci roomky ( vyber z nabidky, zridka input ), klicova slova budou ve tride World, protoze budou pouzivana v "globalnim" meritku 
+pro zmenu roomky nebo ulozeni a vypnuti hry
+
+  Hrdina bude zabijenim monster ziskavat zlato, za ktere si bude moci kupovat lepsi vybaveni, nocleh atd.
+
+Polymorfismus:
+  abstraktni trida Sprite, od ktere dedi Mob a Hero, spolecna metoda print a atributy damage, health, defense
+  abstraktni trida Item, z ni dedi Armor a Weapon, spolecne jsou ulozeny u hrdiny jako 'vector< shared_ptr< Item > > inventory', spolecna metoda print, atribut jmeno

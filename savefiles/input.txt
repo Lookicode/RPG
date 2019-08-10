@@ -1,0 +1,69 @@
+
+Ahoj Kibo, tu tildu tam nech, bez ty to nepujde, ta oznacuje konec meho manualu a monologu k tobe.
+To pod tim je true/false jestli je to nova hra, to nemusis resit, hrdinu si vytvoris az to pustis
+
+Ten world oznacuje jaky roomky tam jsou a kam se z nich da jit ( nwes-direction, x-coordinate, y-coordinate )
+Ty dve cisla u hrdiny je kde ma zacinat, to si nech
+U itemu, kdyz je u nich true, tak s nima zacinas v inventari, jinak se jen pridaji do mozneho poolu itemu, zatim neni jak je ziskavat, ale brzo bude :D,
+jeste pozor, zadavaji se: name attack defense true/false-vlastnictvi, item je bud zbran nebo armor, takze jeden musi byt 0, jinak je to neplatny
+
+Mobs jsou mozny potvory, name health damage
+
+Dialogy ( x y 0=dialog kdyz prijdes, 1=dialog kdyz odchazis, text ) si pridej jak chces
+
+~
+
+false
+
+WORLD
+nwes 0 0
+nw 1 0
+n -1 0
+nwe 0 1
+e 0 2
+nwes 0 -1
+nwes 0 -2
+e -1 1
+w 1 1
+nwes 1 -1
+nwes -1 -1
+nw 1 2
+s -1 2
+nwes -1 -2
+nwes 1 -2
+wes 0 3
+we 1 3
+we 2 3
+nwes 3 3
+s 3 4
+n 3 2
+we 4 3
+w 5 3
+
+HERO
+Lookiboi 200 15 10 10
+0 0
+
+ITEMS
+Long_Sword 4 0 true
+Warrior_Sandals 0 5 true
+Gladiator_Balls 5 0 false
+
+MOBS
+Scavenger 15 6
+Molerat   24 5
+Wolf      26 13
+Boar      43 16
+Goblin    55 14
+Snapper   65 18
+
+DIALOGUES
+0 0 0 You are in an unknown room which seems to have doors on every side.
+0 0 0 Where do you want to go?
+0 0 1 Just when you walked through the door, the door slammed shut and it can't be opened.
+0 1 0 Honestly didn't think you'd make it this far, Kibo.
+0 3 0 This could be a turning point for the band.
+1 3 0 Getting closer.
+3 3 0 This place is called "The Crossroads". Do what you will with this information.
+3 4 0 You arrived at Bandit cave.
+5 3 0 Your first bossfight, good luck!

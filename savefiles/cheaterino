@@ -1,0 +1,55 @@
+~
+false
+
+WORLD
+nwes -1 -2
+nwes -1 -1
+n -1 0
+e -1 1
+s -1 2
+nwes 0 -2
+nwes 0 -1
+nwes 0 0
+nwe 0 1
+e 0 2
+wes 0 3
+nwes 1 -2
+nwes 1 -1
+nw 1 0
+w 1 1
+nw 1 2
+we 1 3
+we 2 3
+n 3 2
+nwes 3 3
+s 3 4
+we 4 3
+w 5 3
+
+HERO
+Lookiboi 99999 99999 99999 99999
+0 -2
+
+ITEMS
+Warglaives of Azzinoth 420 0 true
+Mannoroth's Bloodletting Manacles 0 420 true
+Gladiator_Balls 5 0 false
+
+MOBS
+Scavenger 6 15
+Molerat 5 24
+Wolf 13 26
+Boar 16 43
+Goblin 14 55
+Snapper 18 65
+
+DIALOGUES
+0 0 0  You are in an unknown room which seems to have doors on every side.
+0 0 0  Where do you want to go?
+0 0 1  Just when you walked through the door, the door slammed shut and it can't be opened.
+0 1 0  Honestly didn't think you'd make it this far, Kibo.
+0 3 0  This could be a turning point for the band.
+1 3 0  Getting closer.
+3 3 0  This place is called "The Crossroads". Do what you will with this information.
+3 4 0  You arrived at Bandit cave.
+5 3 0  Your first bossfight, good luck!
