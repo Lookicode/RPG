@@ -5,7 +5,10 @@
 #include <cstring>
 #include <typeinfo>
 #include <sstream>
+#include <vector>
+#include <filesystem>
 
+namespace fs = std::filesystem;
 using namespace std;
 
 const int LineLength = 200;
@@ -15,7 +18,7 @@ const string defaultColor = "\033[0m";
 const string brightBoldPink = "\033[1;95m";
 const string brightBoldRed = "\033[1;91m";
 const string boldYellow = "\033[1;33m";
-
+//const string indigo = "#4B0082";
 
 stringstream Game::VerifyLine()
 {
@@ -42,38 +45,31 @@ void Game::Help () const
 
 bool Game::Go( stringstream & ss )
 {
+  Coordinates coord( hero.Position().xCoor, hero.Position().yCoor );
   string second;
   if ( !(ss >> second) )
-    {
-      return false;
-    }
+  {
+    return false;
+  }
   if ( second == "north" )
   {
-    Coordinates coord( hero.Position().xCoor, hero.Position().yCoor + 1 );
-    if ( ChangeRoom( hero.Position(), coord ) )
-      return true;
-    else return false;
+    coord.yCoor += 1;
+    return ChangeRoom( hero.Position(), coord );
   }
   else if ( second == "west" )
   {
-    Coordinates coord( hero.Position().xCoor - 1, hero.Position().yCoor  );
-    if ( ChangeRoom( hero.Position(), coord ) )
-      return true;
-    else return false;
+    coord.xCoor -= 1;
+    return ChangeRoom( hero.Position(), coord );
   }
   else if ( second == "east" )
   {
-    Coordinates coord( hero.Position().xCoor + 1, hero.Position().yCoor );
-    if ( ChangeRoom( hero.Position(), coord ) )
-      return true;
-    else return false;
+    coord.xCoor += 1;
+    return ChangeRoom( hero.Position(), coord );
   }
   else if ( second == "south" )
   {
-    Coordinates coord( hero.Position().xCoor, hero.Position().yCoor - 1 );
-    if ( ChangeRoom( hero.Position(), coord ) )
-      return true;
-    else return false;
+    coord.yCoor -= 1;
+    return ChangeRoom( hero.Position(), coord );
   }
   else
   {
@@ -174,7 +170,6 @@ bool Game::GetCommand()
 
   return false;
 }
-
 
 bool Game::ContainsState( const string & input )
 {
@@ -306,9 +301,9 @@ void Game::VerifyHero ( ifstream & in )
   string state;
   do
   {
-    getline(in, state);
+    getline( in, state );
   }
-  while (!ContainsState(state));
+  while ( !ContainsState( state ) );
 
 }
 
@@ -327,7 +322,7 @@ void Game::VerifyMobs ( ifstream & in )
   Coordinates coord;
   if ( ss >> name >> health >> attack )
   {
-      world.AddMobPool ( Mob( name, health, attack, health + attack ) );
+      world.AddMobPool( Mob( name, health, attack, health + attack ) );
   }
 
 }
@@ -385,7 +380,7 @@ bool Game::Import ( const char * fileName )
   {
     getline(in, nGame);
   }
-  while (nGame.find( "true" ) == string::npos && nGame.find( "false" ) == string::npos);
+  while ( nGame.find( "true" ) == string::npos && nGame.find( "false" ) == string::npos);
 
   if ( nGame.find( "true" ) != string::npos )
     newGame = true;
@@ -491,10 +486,10 @@ void Game::WriteMobs( ofstream & out ) const
 void Game::WriteDialogues( ofstream & out ) const
 {
   out << "DIALOGUES" << endl;
-  for ( auto ite : *(world.Rooms()) )
+  for ( auto it : *(world.Rooms()) )
   {
-    ite.second->ExportStartDialogues( out );
-    ite.second->ExportChangeDialogues( out );
+    it.second->ExportStartDialogues( out );
+    it.second->ExportChangeDialogues( out );
   }
 }
 
@@ -526,18 +521,29 @@ bool Game::Export ()
 void Game::StartGame ()
 {
   srand( time(0) );
-  Import( "savefiles/input.txt" );
-  //Export();
-  /*Import ( "RPG_Save_0" );
-  Export();
-  Import ( "RPG_Save_1" );
-  Export();*/
+  GetSave();
   do
   {
     GetCommand();
   } while ( !(quit == true) );
   
   
+}
+
+void Game::GetSave()
+{
+  string first = "savefiles/";
+  cout << "Existing save files:" << endl;
+  /*string xpath = "/home/janeclu4/Desktop/TextRPG/savefiles";
+  for ( const auto & entry : fs::directory_iterator( xpath ) )
+  {
+    cout << entry.path() << endl;
+  }*/
+  do
+  {
+    cout << "Enter the name of the file to be loaded." << endl;
+    first += VerifyString();
+  } while ( !Import( first.c_str() ) );
 }
 
 bool Game::ChangeRoom( const Coordinates & from, const Coordinates & to )
@@ -560,7 +566,7 @@ bool Game::ChangeRoom( const Coordinates & from, const Coordinates & to )
   else if ( from.xCoor - to.xCoor == -1 && from.yCoor == to.yCoor )
   {
     if ( world.Rooms()->find( from )->second->Directions().find( "e" ) ||
-        world.Rooms()->find( from )->second->Directions().find( "w" ))
+        world.Rooms()->find( to )->second->Directions().find( "w" ))
     {
       hero.ChangePosition( to );
     }
@@ -569,7 +575,7 @@ bool Game::ChangeRoom( const Coordinates & from, const Coordinates & to )
   else if ( from.yCoor - to.yCoor == 1 && from.xCoor == to.xCoor )
   {
     if ( world.Rooms()->find( from )->second->Directions().find( "s" ) ||
-        world.Rooms()->find( from )->second->Directions().find( "n" ))
+        world.Rooms()->find( to )->second->Directions().find( "n" ))
     {
       hero.ChangePosition( to );
     }
@@ -578,7 +584,7 @@ bool Game::ChangeRoom( const Coordinates & from, const Coordinates & to )
   else if ( from.yCoor - to.yCoor == -1 && from.xCoor == to.xCoor )
   {
     if ( world.Rooms()->find( from )->second->Directions().find( "n" ) ||
-        world.Rooms()->find( from )->second->Directions().find( "s" ))
+        world.Rooms()->find( to )->second->Directions().find( "s" ))
     {
       hero.ChangePosition( to );
     }

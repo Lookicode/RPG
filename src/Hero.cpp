@@ -9,7 +9,6 @@ const string defaultColor = "\033[0m";
 const string brightBoldRed = "\033[1;91m";
 const string brightBoldGreen = "\033[1;92m";
 
-
 void Hero::PrintGold() const
 {
   cout << "Your account balance is " << gold << " gold, keep collecting more!" << endl;
@@ -19,8 +18,6 @@ void Hero::Print () const
 {
   cout << endl << brightBlue << "Your name is: " << name << "," << endl <<  "you have: " << health << " health, you have an outstanding damage of: "
   << damage << ", you are " << gold << " golds rich" << endl << "and your inventory looks as follows:" << endl;
-
-
 
   PrintInventory();
   cout << defaultColor << endl;
@@ -34,9 +31,6 @@ void Hero::PrintInventory () const
   }
 }
 
-/**
- * Fight returns true if the Hero defeated the mob, returns false if Hero lost or ran away
- */
 bool Hero::Fight ( Mob & mob )
 {
   int heroAttack = this->damage;
@@ -84,7 +78,7 @@ bool Hero::Fight ( Mob & mob )
     return false;
   }
 
-  cout << brightBoldGreen << "You won, congrats Kibo! Must have been a tough fight." << defaultColor << endl;
+  cout << brightBoldGreen << "You won, congrats! Must have been a tough fight." << defaultColor << endl;
   unsigned int invPos =  std::rand() % inventory.size();
   inventory.at( invPos )->SpecialEffect();
   cout << "Your item:" << endl;

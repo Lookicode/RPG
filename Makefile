@@ -2,7 +2,8 @@
 .DEFAULT_GOAL = all
 
 CXX = g++
-CXXFLAGS = -Wall -pedantic -Wno-long-long -O0 -ggdb -std=c++14
+CXXFLAGS = -Wall -pedantic -Wno-long-long -O0 -ggdb -std=c++17
+CXXFLAGSANITIZE = -Wall -pedantic -Wno-long-long -O0 -ggdb -std=c++17 -fsanitize=address
 EXEC = janeclu4
 SOURCE := $(wildcard src/*.cpp)
 
@@ -15,6 +16,12 @@ all: compile doc
 
 compile: $(SOURCE:.cpp=.o)
 	$(CXX) $(CXXFLAGS) $(SOURCE:.cpp=.o) -o $(EXEC)
+
+comp_sanitizer: $(SOURCE:.cpp=.o)
+	$(CXX) $(CXXFLAGSANITIZE) $(SOURCE:.cpp=.o) -o $(EXEC)
+
+sanitizer : comp_sanitizer
+	./$(EXEC)
 
 run : compile
 	./$(EXEC)

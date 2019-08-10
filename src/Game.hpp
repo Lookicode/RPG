@@ -150,14 +150,18 @@ class Game
      * @return true if it was successfull, false otherwise
      */
     bool Export ();
+    /**
+     * Gets the name of a save file to be loaded
+     */
+    void GetSave ();
   private:
   /**
    * Finite state machine for input
    */
     enum states {
       WORLD, /**< handles rooms */
-      ITEMS, /**< handles items */
       HERO, /**< creates hero */
+      ITEMS, /**< handles items */
       MOBS, /**< creates mobs */
       DIALOGUES }; /**< creates dialogues */
     enum states STATE; /**< instance of the FSM */
