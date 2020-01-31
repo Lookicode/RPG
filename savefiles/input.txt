@@ -1,16 +1,4 @@
 
-Ahoj Kibo, tu tildu tam nech, bez ty to nepujde, ta oznacuje konec meho manualu a monologu k tobe.
-To pod tim je true/false jestli je to nova hra, to nemusis resit, hrdinu si vytvoris az to pustis
-
-Ten world oznacuje jaky roomky tam jsou a kam se z nich da jit ( nwes-direction, x-coordinate, y-coordinate )
-Ty dve cisla u hrdiny je kde ma zacinat, to si nech
-U itemu, kdyz je u nich true, tak s nima zacinas v inventari, jinak se jen pridaji do mozneho poolu itemu, zatim neni jak je ziskavat, ale brzo bude :D,
-jeste pozor, zadavaji se: name attack defense true/false-vlastnictvi, item je bud zbran nebo armor, takze jeden musi byt 0, jinak je to neplatny
-
-Mobs jsou mozny potvory, name health damage
-
-Dialogy ( x y 0=dialog kdyz prijdes, 1=dialog kdyz odchazis, text ) si pridej jak chces
-
 ~
 
 false
