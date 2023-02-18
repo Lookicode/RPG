@@ -35,7 +35,7 @@ Lookiboi 200 15 10 10
 ITEMS
 Long_Sword 4 0 true
 Warrior_Sandals 0 5 true
-Gladiator_Balls 5 0 false
+Gladiator_Spear 5 0 false
 
 MOBS
 Scavenger 15 6
@@ -49,7 +49,7 @@ DIALOGUES
 0 0 0 You are in an unknown room which seems to have doors on every side.
 0 0 0 Where do you want to go?
 0 0 1 Just when you walked through the door, the door slammed shut and it can't be opened.
-0 1 0 Honestly didn't think you'd make it this far, Kibo.
+0 1 0 Honestly didn't think you'd make it this far.
 0 3 0 This could be a turning point for the band.
 1 3 0 Getting closer.
 3 3 0 This place is called "The Crossroads". Do what you will with this information.
