@@ -12,3 +12,6 @@ OVERHAUL 2024:
 gitignore
 code de-duplication
 are you sure you want to quit without saving? if no, trigger export and only then quit
+
+
+(MSYS2 UCRT64)
