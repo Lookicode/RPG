@@ -51,32 +51,30 @@ bool Game::Go( stringstream & ss )
   {
     return false;
   }
-  if ( second == "north" )
-  {
-    coord.yCoor += 1;
-    return ChangeRoom( hero.Position(), coord );
-  }
-  else if ( second == "west" )
-  {
-    coord.xCoor -= 1;
-    return ChangeRoom( hero.Position(), coord );
-  }
-  else if ( second == "east" )
-  {
-    coord.xCoor += 1;
-    return ChangeRoom( hero.Position(), coord );
-  }
-  else if ( second == "south" )
-  {
-    coord.yCoor -= 1;
-    return ChangeRoom( hero.Position(), coord );
-  }
-  else
+  // if second is neither of: north, west, east, south
+  if (second != "north" && second != "west" && second != "east" && second != "south" )
   {
     cout << "Unknown option, type 'help' to list possible options." << endl;
     return false;
   }
-  return true;
+
+  if ( second == "north" )
+  {
+    coord.yCoor += 1;
+  }
+  else if ( second == "west" )
+  {
+    coord.xCoor -= 1;
+  }
+  else if ( second == "east" )
+  {
+    coord.xCoor += 1;
+  }
+  else if ( second == "south" )
+  {
+    coord.yCoor -= 1;
+  }
+  return ChangeRoom( hero.Position(), coord );
 }
 
 bool Game::GetCommand()
@@ -382,9 +380,9 @@ bool Game::Import ( const char * fileName )
   }
   while ( nGame.find( "true" ) == string::npos && nGame.find( "false" ) == string::npos);
 
-  if ( nGame.find( "true" ) != string::npos )
+  /*if ( nGame.find( "true" ) != string::npos )
     newGame = true;
-  else if ( nGame.find( "false" ) != string::npos )
+  else */if ( nGame.find( "false" ) != string::npos )
     newGame = false;
   else newGame = true;
 
@@ -534,11 +532,11 @@ void Game::GetSave()
 {
   string first = "savefiles/";
   cout << "Existing save files:" << endl;
-  /*string xpath = "/home/janeclu4/Desktop/TextRPG/savefiles";
+  string xpath = "./savefiles";
   for ( const auto & entry : fs::directory_iterator( xpath ) )
   {
     cout << entry.path() << endl;
-  }*/
+  }
   do
   {
     cout << "Enter the name of the file to be loaded." << endl;
@@ -550,45 +548,41 @@ bool Game::ChangeRoom( const Coordinates & from, const Coordinates & to )
 {
   if ( world.Rooms()->find( to ) == world.Rooms()->end() )
   {
-    cout << "Destination room doesnt exist." << endl;
+    cout << "Destination room doesn't exist." << endl;
     return false;
   }
+
   if ( from.xCoor - to.xCoor == 1 && from.yCoor == to.yCoor )
-  {
+  { //west
     if ( world.Rooms()->find( from )->second->Directions().find( "w" ) || 
         world.Rooms()->find( to )->second->Directions().find( "e" ))
     {
       hero.ChangePosition( to );
-      
     }
-    //west
   }
   else if ( from.xCoor - to.xCoor == -1 && from.yCoor == to.yCoor )
-  {
+  { //east
     if ( world.Rooms()->find( from )->second->Directions().find( "e" ) ||
         world.Rooms()->find( to )->second->Directions().find( "w" ))
     {
       hero.ChangePosition( to );
     }
-    //east
   }
   else if ( from.yCoor - to.yCoor == 1 && from.xCoor == to.xCoor )
-  {
+  { //south
     if ( world.Rooms()->find( from )->second->Directions().find( "s" ) ||
         world.Rooms()->find( to )->second->Directions().find( "n" ))
     {
       hero.ChangePosition( to );
     }
-    //south
   }
   else if ( from.yCoor - to.yCoor == -1 && from.xCoor == to.xCoor )
-  {
+  { //north
     if ( world.Rooms()->find( from )->second->Directions().find( "n" ) ||
         world.Rooms()->find( to )->second->Directions().find( "s" ))
     {
       hero.ChangePosition( to );
     }
-    //north
   }
   else return false;
 
